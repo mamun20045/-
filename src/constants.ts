@@ -49,6 +49,41 @@ export interface ChatMessage {
   bengali: string;
 }
 
+export const GRAMMAR_DATA = [
+  {
+    title: "বেসিক বাক্য গঠন (Sentence Structure)",
+    desc: "চাইনিজ ভাষার সাধারণ বাক্য গঠন পদ্ধতি।",
+    rules: [
+      { rule: "S + V + O", ex: "我 (S) + 喝 (V) + 水 (O)", bn: "আমি পানি খাই।" },
+      { rule: "সময় + S + V + O", ex: "明天 (সময়) + 我 (S) + 去 (V) + 北京 (O)", bn: "আগামীকাল আমি বেইজিং যাবো।" }
+    ]
+  },
+  {
+    title: "প্রশ্নবোধক বাক্য (Questions with 吗)",
+    desc: "বাক্যের শেষে 'má' (吗) যোগ করে প্রশ্ন করা হয়।",
+    rules: [
+      { rule: "Statement + 吗?", ex: "你好吗? (Nǐ hǎo ma?)", bn: "তুমি কেমন আছো?" },
+      { rule: "তুমি ভাত খাও + 吗?", ex: "你吃饭吗? (Nǐ chī fàn ma?)", bn: "তুমি কি ভাত খেয়েছ?" }
+    ]
+  },
+  {
+    title: "নেতিবাচক বাক্য (Negation with 不)",
+    desc: "ক্রিয়ার আগে 'bù' (不) বসিয়ে না-বোধক বাক্য করা হয়।",
+    rules: [
+      { rule: "S + 不 + V + O", ex: "我不喝水 (Wǒ bù hē shuǐ)", bn: "আমি পানি খাই না।" },
+      { rule: "S + 不是 + O", ex: "我不是老师 (Wǒ bùshì lǎoshī)", bn: "আমি শিক্ষক নই।" }
+    ]
+  },
+  {
+    title: "অধিকার বা সম্বন্ধ (Possession with 的)",
+    desc: "মালিকানা বোঝাতে 'de' (的) ব্যবহার করা হয়।",
+    rules: [
+      { rule: "মালিক + 的 + বস্তু", ex: "我的书 (Wǒ de shū)", bn: "আমার বই।" },
+      { rule: "তোমার নাম", ex: "你的名字 (Nǐ de míngzì)", bn: "তোমার নাম।" }
+    ]
+  }
+];
+
 // HSK 1 Premium Features Data
 export const USER_NAME = "মামুন";
 export const USER_POINTS = 1200;
@@ -73,6 +108,7 @@ export const PREMIUM_FEATURES = [
   { id: "culture", title: "চায়না কালচার", desc: "ঐতিহ্য ও খাবার", icon: "Globe", color: "#636E72" },
   { id: "missions", title: "ডেইলি মিশন", desc: "বাড়তি পয়েন্ট অর্জন", icon: "Target", color: "#E67E22" },
   { id: "aitutor", title: "এআই টিউটর", desc: "২৪/৭ ব্যক্তিগত শিক্ষক", icon: "Bot", color: "#00B894" },
+  { id: "grammar", title: "গ্রামার গাইড", desc: "সহজ চাইনিজ ব্যকরণ", icon: "BookOpen", color: "#E67E22" },
   { id: "dictionary", title: "ডিকশনারি", desc: "সহজ শব্দ খোঁজা", icon: "Search", color: "#A29BFE" },
   { id: "mocktest", title: "এইচএসকে টেস্ট", desc: "পরীক্ষার প্রস্তুতি", icon: "FileText", color: "#FAB1A0" },
 ];

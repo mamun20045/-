@@ -56,6 +56,7 @@ import {
   DAILY_MISSIONS,
   REVISION_CARDS,
   DICTIONARY_DATA,
+  GRAMMAR_DATA,
   MOCK_TEST_STATUS,
   MOCK_TEST_QUESTIONS
 } from "./constants";
@@ -435,6 +436,38 @@ export default function App() {
               <motion.div key="premium" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="space-y-6">
                 
                 {premiumCategory === "camera" && <MagicCamera onClose={returnToMap} />}
+                {premiumCategory === "grammar" && (
+                   <div className="space-y-6">
+                      <div className="p-8 bg-gradient-to-br from-[#E67E22] to-[#D35400] rounded-[48px] text-white shadow-xl relative overflow-hidden">
+                         <div className="absolute top-0 right-0 p-8 opacity-10"><BookOpen size={120} /></div>
+                         <h2 className="text-3xl font-black mb-1 relative z-10 tracking-tighter">গ্রামার গাইড (HSK 1)</h2>
+                         <p className="text-white/80 font-bold text-sm relative z-10">অফলাইনেও শিখুন যে কোনো সময়</p>
+                      </div>
+                      <div className="space-y-8">
+                         {GRAMMAR_DATA.map((item, idx) => (
+                           <div key={idx} className="space-y-4">
+                              <div className="flex items-center gap-3">
+                                 <div className="w-1.5 h-6 bg-[#E67E22] rounded-full" />
+                                 <h3 className="font-black text-xl text-[#2D3436] tracking-tight">{item.title}</h3>
+                              </div>
+                              <p className="text-sm font-bold text-[#636E72] px-4">{item.desc}</p>
+                              <div className="space-y-3 px-4">
+                                 {item.rules.map((rule, rIdx) => (
+                                   <div key={rIdx} className="p-5 bg-[#F9FAF5] rounded-[32px] border-2 border-[#F0F2E8] space-y-2 group hover:border-[#E67E22] transition-all">
+                                      <pre className="text-[10px] font-black uppercase text-[#E67E22] tracking-widest">{rule.rule}</pre>
+                                      <p className="text-xl font-black text-[#2D3436]">{rule.ex}</p>
+                                      <p className="text-sm font-bold text-[#A0A396]">অর্থ: {rule.bn}</p>
+                                      <button onClick={() => speak(rule.ex.split('(')[0].trim())} className="mt-2 text-[#E67E22] font-black text-[10px] uppercase tracking-widest flex items-center gap-1">
+                                         <Volume2 size={12} /> উচ্চারণ শুনুন
+                                      </button>
+                                   </div>
+                                 ))}
+                              </div>
+                           </div>
+                         ))}
+                      </div>
+                   </div>
+                )}
                 {premiumCategory === "tones" && <ToneAnalyzer onClose={returnToMap} />}
                 {premiumCategory === "dubbing" && <VideoRoleplay onClose={returnToMap} />}
                 {premiumCategory === "shorts" && <ShortsFeed onClose={returnToMap} />}
