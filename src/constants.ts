@@ -10,6 +10,9 @@ export interface Word {
   bengali: string;
   meaning: string;
   category: "PRONOUN" | "ACTION" | "OBJECT" | "NUMBER" | "ADJECTIVE";
+  examples?: { zh: string; py: string; bn: string }[];
+  collocations?: string[];
+  notes?: string;
 }
 
 export type QuizType = "TRANSLATE" | "LISTENING" | "BUILD";
@@ -39,6 +42,13 @@ export interface StorySegment {
   pinyin: string;
   chinese: string;
   bengali: string;
+}
+
+export interface Story {
+  id: number;
+  title: string;
+  description: string;
+  segments: StorySegment[];
 }
 
 export interface ChatMessage {
@@ -84,16 +94,41 @@ export const GRAMMAR_DATA = [
   }
 ];
 
-// HSK 1 Premium Features Data
+export const STUDY_GUIDE = [
+  {
+    phase: "ধাপ ১: ফাউন্ডেশন (১-৭ দিন)",
+    title: "উচ্চারণ ও টোন ঠিক করা",
+    desc: "চাইনিজ ভাষার ভিত্তি হলো পিনয়ন (Pinyin) এবং ৪টি টোন। এটি না শিখলে আপনার কথা চাইনিজরা বুঝবে না।",
+    tasks: ["সুর চেকার ব্যবহার করুন", "ম্যাজিক ক্যামেরা দিয়ে বস্তু চিনুন", "পিনয়ন চার্ট দেখুন"]
+  },
+  {
+    phase: "ধাপ ২: প্রয়োজনীয় ২০০ শব্দ (১ মাস)",
+    title: "HSK ১ আয়ত্ত করা",
+    desc: "সবচেয়ে বেশি ব্যবহৃত প্রথম ২০০টি শব্দ শিখলে আপনি ছোট ছোট বাক্য বলতে পারবেন।",
+    tasks: ["শিখার পথের ৩টি লেসন শেষ করুন", "প্রতিদিন ৫টি করে ফ্ল্যাশকার্ড দেখুন", "হাতে লেখা প্র্যাকটিস করুন"]
+  },
+  {
+    phase: "ধাপ ৩: কথোপকথন (২-৩ মাস)",
+    title: "বাক্য গঠন ও এআই প্র্যাকটিস",
+    desc: "১০০০টি শব্দের দিকে যাওয়ার সময় এখন। শব্দগুলোকে বাক্যে ব্যবহার করা শিখুন।",
+    tasks: ["এআই টিউটর (Guru) এর সাথে চ্যাট করুন", "ভিডিও ডাবিং করে কন্ঠ মেলান", "শর্টস ভিডিও দেখে ভাষা শুনুন"]
+  },
+  {
+    phase: "ধাপ ৪: লক্ষ্য অর্জন (৬ মাস)",
+    title: "অনর্গল কথা বলা",
+    desc: "এই ধাপে আপনি প্রায় ১০০০-১২০০ শব্দ জানবেন এবং যে কোনো সাধারণ বিষয়ে কথা বলতে পারবেন।",
+    tasks: ["এইচএসকে মক টেস্ট দিন", "সারভাইভাল কিট মুখস্থ রাখুন", "গল্প পড়ুন ও অডিও শুনুন"]
+  }
+];
+
 export const USER_NAME = "মামুন";
 export const USER_POINTS = 1200;
 export const USER_STREAK = 5;
 
-// Premium Features (14 Total)
 export const PREMIUM_FEATURES = [
   { id: "camera", title: "ম্যাজিক ক্যামেরা", desc: "চারপাশের বস্তু স্ক্যান করুন", icon: "Camera", color: "#FF6B6B" },
   { id: "tones", title: "সুর চেকার", desc: "চাইনিজ টোন প্র্যাকটিস", icon: "Waves", color: "#4ECDC4" },
-  { id: "dubbing", title: "ভিডিও ডাবিং", desc: "নাটকের ক্লিপে কথা বলুন", icon: "Tv", color: "#FFD93D" },
+  { id: "dubbing", title: "ভিডিও রোলপ্লে", desc: "AI হিউম্যানের সাথে প্র্যাকটিস", icon: "Tv", color: "#FFD93D" },
   { id: "shorts", title: "শর্টস রিলস", desc: "মজার ভিডিও দেখে শেখা", icon: "PlaySquare", color: "#6C5CE7" },
   { id: "video", title: "বাক্য তৈরি", desc: "ভিডিও থেকে বাক্য সাজান", icon: "Video", color: "#88B04B" },
   { id: "stories", title: "গল্প পড়ুন", desc: "পড়ুন এবং অডিও শুনুন", icon: "BookOpen", color: "#88B04B" },
@@ -109,6 +144,7 @@ export const PREMIUM_FEATURES = [
   { id: "missions", title: "ডেইলি মিশন", desc: "বাড়তি পয়েন্ট অর্জন", icon: "Target", color: "#E67E22" },
   { id: "aitutor", title: "এআই টিউটর", desc: "২৪/৭ ব্যক্তিগত শিক্ষক", icon: "Bot", color: "#00B894" },
   { id: "grammar", title: "গ্রামার গাইড", desc: "সহজ চাইনিজ ব্যকরণ", icon: "BookOpen", color: "#E67E22" },
+  { id: "roadmap", title: "শিখার গাইড", desc: "পূর্ণাঙ্গ রোডম্যাপ", icon: "Target", color: "#88B04B" },
   { id: "dictionary", title: "ডিকশনারি", desc: "সহজ শব্দ খোঁজা", icon: "Search", color: "#A29BFE" },
   { id: "mocktest", title: "এইচএসকে টেস্ট", desc: "পরীক্ষার প্রস্তুতি", icon: "FileText", color: "#FAB1A0" },
 ];
@@ -116,32 +152,27 @@ export const PREMIUM_FEATURES = [
 export const DICTIONARY_DATA = [
   { word: "爱", pinyin: "ài", bn: "ভালোবাসা", ex: "我爱我的家 (আমি আমার পরিবারকে ভালোবাসি)" },
   { word: "八", pinyin: "bā", bn: "আট", ex: "我有八个杯子 (আমার আটটি কাপ আছে)" },
+  { word: "爸爸", pinyin: "bàba", bn: "বাবা", ex: "我爸爸是医生 (আমার বাবা একজন ডাক্তার)" },
+  { word: "杯子", pinyin: "bēizi", bn: "কাপ", ex: "桌子上有一个杯子 (টেবিলের উপর একটি কাপ আছে)" },
+  { word: "北京", pinyin: "Běijīng", bn: "বেইজিং", ex: "我去北京 (আমি বেইজিং যাচ্ছি)" },
+  { word: "本", pinyin: "běn", bn: "বইয়ের পরিমাপক", ex: "三本书 (তিনটি বই)" },
+  { word: "不客气", pinyin: "búkèqi", bn: "আপনাকে স্বাগতম", ex: "谢谢! 不客气! (ধন্যবাদ! স্বাগতম!)" },
+  { word: "不", pinyin: "bù", bn: "না", ex: "我不去 (আমি যাব না)" },
+  { word: "菜", pinyin: "cài", bn: "সবজি/খাবার", ex: "我不喜欢吃菜 (আমি সবজি খেতে পছন্দ করি না)" },
   { word: "茶", pinyin: "chá", bn: "চা", ex: "请喝茶 (অনুগ্রহ করে চা পান করুন)" },
-  { word: "大", pinyin: "dà", bn: "বড়", ex: "这个苹果很大 (এই আপেলটি অনেক বড়)" },
-  { word: "二", pinyin: "èr", bn: "দুই", ex: "他有两个妹妹 (তার দুইজন ছোট বোন আছে)" },
-  { word: "饭", pinyin: "fàn", bn: "ভাত", ex: "我会下个饭 (আমি রান্না করতে পারি)" },
-  { word: "狗", pinyin: "gǒu", bn: "কুকুর", ex: "这只狗很可爱 (এই কুকুরটি খুব কিউট)" },
-  { word: "和", pinyin: "hé", bn: "এবং", ex: "爸爸和我 (বাবা এবং আমি)" },
-  { word: "几", pinyin: "jǐ", bn: "কয়টি", ex: "你有几个苹果？ (তোমার কাছে কয়টি আপেল আছে?)" },
-  { word: "看", pinyin: "kàn", bn: "দেখা/পড়া", ex: "我看书 (আমি বই পড়ি)" },
-  { word: "冷", pinyin: "lěng", bn: "ঠান্ডা", ex: "今天很冷 (আজ খুব ঠান্ডা)" },
-  { word: "妈妈", pinyin: "māma", bn: "মা", ex: "妈妈爱我 (মা আমাকে ভালোবাসেন)" },
-  { word: "你", pinyin: "nǐ", bn: "তুমি", ex: "你好 (হ্যালো)" },
-  { word: "漂亮", pinyin: "piàoliang", bn: "সুন্দর", ex: "她很漂亮 (সে খুব সুন্দর)" },
-  { word: "去", pinyin: "qù", bn: "যাওয়া", ex: "我去学校 (আমি স্কুলে যাই)" },
-  { word: "水", pinyin: "shuǐ", bn: "পানি", ex: "我想喝水 (আমি পানি খেতে চাই)" },
-  { word: "听", pinyin: "tīng", bn: "শোনা", ex: "我听音乐 (আমি গান শুনি)" },
-  { word: "我们", pinyin: "wǒmen", bn: "আমরা", ex: "我们是朋友 (আমরা বন্ধু)" },
-  { word: "小", pinyin: "xiǎo", bn: "ছোট", ex: "这个猫很小 (এই বিড়ালটি খুব ছোট)" },
-  { word: "医生", pinyin: "yīshēng", bn: "ডাক্তার", ex: "他是医生 (সে একজন ডাক্তার)" },
-  { word: "再见", pinyin: "zàijiàn", bn: "বিদায়", ex: "明天见 (আগামীকাল দেখা হবে)" },
+  { word: "吃", pinyin: "chī", bn: "খাওয়া", ex: "你在吃什么? (তুমি কি খাচ্ছ?)" },
+  { word: "出租车", pinyin: "chūzūchē", bn: "ট্যাক্সি", ex: "我们坐出租车吧 (চলুন ট্যাক্সিতে যাই)" },
+  { word: "打电话", pinyin: "dǎdiànhuà", bn: "ফোন করা", ex: "他在打电话 (সে ফোনে কথা বলছে)" },
+  { word: "大", pinyin: "dà", bn: "বড়", ex: "এই আপেলটি অনেক বড়" },
+  { word: "的", pinyin: "de", bn: "এর", ex: "আমার বই" },
+  { word: "点", pinyin: "diǎn", bn: "টা/সময়", ex: "এখন তিনটা বাজে" },
 ];
 
 export const MOCK_TEST_STATUS = {
   unlocked: true,
   lastScore: 0,
   totalQuestions: 10,
-  timeLimit: 600 // 10 minutes for demo
+  timeLimit: 600
 };
 
 export const MOCK_TEST_QUESTIONS: QuizQuestion[] = [
@@ -169,62 +200,6 @@ export const MOCK_TEST_QUESTIONS: QuizQuestion[] = [
     correctAnswer: "我吃饭",
     chips: ["吃", "饭", "我", "水"]
   },
-  {
-    id: "m4",
-    type: "LISTENING",
-    question: "সঠিক অর্থ নির্বাচন করুন",
-    chineseContent: "谢谢",
-    correctAnswer: "ধন্যবাদ",
-    options: ["ধন্যবাদ", "মা", "বাবা"]
-  },
-  {
-    id: "m5",
-    type: "BUILD",
-    question: "তৈরি করুন: 'তুুমি চা পান করো'",
-    chineseContent: "你喝茶",
-    correctAnswer: "你喝茶",
-    chips: ["茶", "你", "喝", "我"]
-  },
-  {
-    id: "m6",
-    type: "TRANSLATE",
-    question: "'মানুষ' এর পিনয়িন কী?",
-    chineseContent: "人",
-    correctAnswer: "ren",
-    hint: "rén"
-  },
-  {
-    id: "m7",
-    type: "LISTENING",
-    question: "সঠিক অর্থ নির্বাচন করুন",
-    chineseContent: "再见",
-    correctAnswer: "বিদায়",
-    options: ["বিদায়", "হ্যালো", "নাম"]
-  },
-  {
-    id: "m8",
-    type: "BUILD",
-    question: "তৈরি করুন: 'সে আমার বন্ধু'",
-    chineseContent: "他是我的朋友",
-    correctAnswer: "他是我的朋友",
-    chips: ["他", "是", "我的", "朋友", "我"]
-  },
-  {
-    id: "m9",
-    type: "TRANSLATE",
-    question: "'বড়' এর পিনয়িন কী?",
-    chineseContent: "大",
-    correctAnswer: "da",
-    hint: "dà"
-  },
-  {
-    id: "m10",
-    type: "BUILD",
-    question: "তৈরি করুন: 'আমি ভালোবাসি'",
-    chineseContent: "我爱",
-    correctAnswer: "我爱",
-    chips: ["爱", "我", "喝"]
-  }
 ];
 
 export const CULTURE_DATA = [
@@ -240,15 +215,8 @@ export const CULTURE_DATA = [
     title: "চীনের মহাপ্রাচীর", 
     img: "https://images.unsplash.com/photo-1508804185872-d7badad00f7d?auto=format&fit=crop&q=80&w=400", 
     desc: "পৃথিবীর সপ্তাশ্চর্যের একটি হলো চীনের এই দেয়াল। এটি রক্ষার জন্য তৈরি করা হয়েছিল।",
-    wikiUrl: "https://bn.wikipedia.org/wiki/%E0%A6%9A%E0%A7%80%E0%A6%A8%E0%A7%87%E0%A6%B0_%E0%A6%AE%E0%A6%B9%E0%A6%BE%E0%A6%AA%E0%A7%8D%E0%A6%B0%E0%A6%BE%E0%A6%9A%E0%A7%80%E0%A6%B0"
+    wikiUrl: "https://bn.wikipedia.org/wiki/%E0%A6%9A%E0%A7%80%E0%A6%A8%E0%A7%8ER_%E0%A6%AE%E0%A6%B9%E0%A6%BE%E0%A6%AA%E0%A7%8D%E0%A6%B0%E0%A6%BE%E0%A6%9A%E0%A7%80%E0%A6%B0"
   },
-  { 
-    id: 3, 
-    title: "বসন্ত উৎসব (Lunar New Year)", 
-    img: "https://images.unsplash.com/photo-1576402197148-356396f42a7d?auto=format&fit=crop&q=80&w=400", 
-    desc: "চাইনিজদের সবচেয়ে বড় এবং রঙিন উৎসব। লাল রঙের পোশাক ও লণ্ঠন এখানে অনিবার্য।",
-    wikiUrl: "https://bn.wikipedia.org/wiki/%E0%A6%9A%E0%A7%80%E0%A6%A8%E0%A6%BE_%E0%A6%A8%E0%A6%AC%E0%A6%AC%E0%A6%B0%E0%A7%8D%E0%A6%B7"
-  }
 ];
 
 export const DAILY_MISSIONS = [
@@ -264,8 +232,6 @@ export const REVISION_CARDS = [
 
 export const SHORTS_FEED = [
   { id: 1, url: "https://assets.mixkit.co/videos/preview/mixkit-street-food-market-at-night-1358-large.mp4", backup: "https://www.w3schools.com/html/mov_bbb.mp4", title: "চাইনিজ স্ট্রিট ফুড", subtiles: { zh: "这个多少钱?", bn: "এটার দাম কত?" } },
-  { id: 2, url: "https://assets.mixkit.co/videos/preview/mixkit-busy-street-in-shanghai-at-night-4245-large.mp4", backup: "https://www.w3schools.com/html/mov_bbb.mp4", title: "সাংহাই শহর", subtiles: { zh: "上海很漂亮!", bn: "সাংহাই অনেক সুন্দর!" } },
-  { id: 3, url: "https://assets.mixkit.co/videos/preview/mixkit-tea-being-poured-into-a-cup-4009-large.mp4", backup: "https://www.w3schools.com/html/mov_bbb.mp4", title: "চাইনিজ চা", subtiles: { zh: "请喝茶。", bn: "অনুগ্রহ করে চা পান করুন।" } },
 ];
 
 export const ROLEPLAY_SCENARIOS = [
@@ -276,7 +242,7 @@ export const ROLEPLAY_SCENARIOS = [
     backupVideo: "https://www.w3schools.com/html/mov_bbb.mp4",
     lines: [
       { id: "L1", speaker: "Waiter", text: "您想吃什么?", pinyin: "Nín xiǎng chī shénme?", translation: "আপনি কি খেতে চান?" },
-      { id: "L2", speaker: "You", text: "我想吃米饭。", pinyin: "Wǒ xiǎng chī mǐfàn.", translation: "আমি ভাত খেতে চাই।" }
+      { id: "L2", speaker: "You", text: "我想 eat 米饭。", pinyin: "Wǒ xiǎng chī mǐfàn.", translation: "আমি ভাত খেতে চাই।" }
     ]
   }
 ];
@@ -288,77 +254,52 @@ export const TONE_PRACTICE = [
   { char: "骂", pinyin: "mà", tone: 4, desc: "উপর থেকে নিচে (Falling)" },
 ];
 
-export const STORY_CONTENT: StorySegment[] = [
-  { pinyin: "Wǒ de jiā", chinese: "我的家", bengali: "আমার পরিবার" },
-  { pinyin: "Wǒ jiā yǒu sān kǒu rén.", chinese: "我家有三口人。", bengali: "আমার পরিবারে তিনজন সদস্য আছে।" },
-  { pinyin: "Bàba, māma hé wǒ.", chinese: "爸爸, 妈妈和我。", bengali: "বাবা, মা এবং আমি।" },
-  { pinyin: "Wǒmen hěn xìngfú。", chinese: "我们很幸福。", bengali: "আমরা খুব সুখী।" }
+export const STORY_CONTENT: Story[] = [
+  {
+    id: 1,
+    title: "আমার পরিবার (My Family)",
+    description: "পরিবার সম্পর্কে সাধারণ কথোপকথন।",
+    segments: [
+      { pinyin: "Wǒ de jiā", chinese: "我的家", bengali: "আমার পরিবার" },
+      { pinyin: "Wǒ jiā yǒu sān kǒu rén.", chinese: "我家有三口人。", bengali: "আমার পরিবারে তিনজন সদস্য আছে।" },
+    ]
+  }
 ];
 
 export const CHAT_HISTORY: ChatMessage[] = [
   { id: 1, sender: "AI", chinese: "你好! 你叫什么名字?", pinyin: "Nǐ hǎo! Nǐ jiào shénme míngzì?", bengali: "হ্যালো! তোমার নাম কি?" },
-  { id: 2, sender: "USER", chinese: `你好, 我叫 ${USER_NAME}。`, pinyin: "Nǐ hǎo, wǒ jiào Mamun.", bengali: `হ্যালো, আমার নাম ${USER_NAME}।` },
-  { id: 3, sender: "AI", chinese: "很高兴认识你。", pinyin: "Hěn gāoxìng rènshí nǐ.", bengali: "তোমার সাথে দেখা করে খুব ভালো লাগলো।" }
 ];
 
-// Survival Kit Data
 export const SURVIVAL_KIT = [
-  { pinyin: "Jiùmìng ā!", chinese: "救命啊！", bengali: "বাঁচান! (পাহাড়ের বিপদে)", meaning: "Help!" },
-  { pinyin: "Wǒ mídù le.", chinese: "我迷路了。", bengali: "আমি হারিয়ে গেছি।", meaning: "I am lost." },
-  { pinyin: "Yīyuàn zài nǎr?", chinese: "医院在哪儿？", bengali: "হাসপাতাল কোথায়?", meaning: "Where is the hospital?" },
+  { pinyin: "Jiùmìng ā!", chinese: "救命啊！", bengali: "বাঁচান!", meaning: "Help!" },
 ];
 
-// Flashcards Data
 export const FLASHCARDS_DATA = [
   { char: "日", pinyin: "Rì", bengali: "সূর্য / দিন", img: "https://images.unsplash.com/photo-1526644485127-ec1245084992?auto=format&fit=crop&q=80&w=300" },
-  { char: "月", pinyin: "Yuè", bengali: "চাঁদ / মাস", img: "https://images.unsplash.com/photo-1532689591141-b4ec11f93010?auto=format&fit=crop&q=80&w=300" },
-  { char: "山", pinyin: "Shān", bengali: "পাহাড়", img: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80&w=300" },
-  { char: "水", pinyin: "Shuǐ", bengali: "পানি", img: "https://images.unsplash.com/photo-1548919973-5dea5846f669?auto=format&fit=crop&q=80&w=300" },
-  { char: "火", pinyin: "Huǒ", bengali: "আগুন", img: "https://images.unsplash.com/photo-1517055729445-fa7d27394b48?auto=format&fit=crop&q=80&w=300" },
-  { char: "木", pinyin: "Mù", bengali: "কাঠ / গাছ", img: "https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?auto=format&fit=crop&q=80&w=300" },
-  { char: "人", pinyin: "Rén", bengali: "মানুষ", img: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=300" },
-  { char: "口", pinyin: "Kǒu", bengali: "মুখ", img: "https://images.unsplash.com/photo-1543336585-8868cc9da7eb?auto=format&fit=crop&q=80&w=300" },
-  { char: "门", pinyin: "Mén", bengali: "দরজা", img: "https://images.unsplash.com/photo-1517487881594-2787fef5ebf7?auto=format&fit=crop&q=80&w=300" },
-  { char: "心", pinyin: "Xīn", bengali: "হৃদয়", img: "https://images.unsplash.com/photo-1516589174184-c685266e48df?auto=format&fit=crop&q=80&w=300" },
 ];
 
 export const WRITING_CHARACTERS = [
   { char: "一", pinyin: "yī", meaning: "এক (One)" },
-  { char: "人", pinyin: "rén", meaning: "মানুষ (Person)" },
-  { char: "大", pinyin: "dà", meaning: "বড় (Big)" },
-  { char: "口", pinyin: "kǒu", meaning: "মুখ (Mouth/Measure word)" },
-  { char: "妈", pinyin: "mā", meaning: "মা (Mother)" },
-  { char: "水", pinyin: "shuǐ", meaning: "পানি (Water)" },
-  { char: "王", pinyin: "wáng", meaning: "রাজা (King/Common surname)" },
-  { char: "天", pinyin: "tiān", meaning: "আকাশ/দিন (Sky/Day)" },
-  { char: "子", pinyin: "zǐ", meaning: "সন্তান/বীজ (Son/Child/Seed)" },
-  { char: "中", pinyin: "zhōng", meaning: "মধ্য/চীন (Middle/China)" },
-  { char: "火", pinyin: "huǒ", meaning: "আগুন (Fire)" },
-  { char: "山", pinyin: "shān", meaning: "পাহাড় (Mountain)" },
-  { char: "木", pinyin: "mù", meaning: "গাছ/কাঠ (Tree/Wood)" },
-  { char: "小", pinyin: "xiǎo", meaning: "ছোট (Small)" }
 ];
 
 export const GAME_WORDS = [
   { chinese: "你好", bengali: "হ্যালো" },
-  { chinese: "水", bengali: "পানি" },
-  { chinese: "吃", bengali: "খাওয়া" },
-  { chinese: "谢谢", bengali: "ধন্যবাদ" },
-  { chinese: "再见", bengali: "বিদায়" }
 ];
 
 export const HSK_1_WORDS: Word[] = [
-  { id: "1", character: "我", pinyin: "wǒ", bengali: "আমি", meaning: "I/Me", category: "PRONOUN" },
-  { id: "2", character: "你", pinyin: "nǐ", bengali: "তুমি", meaning: "You", category: "PRONOUN" },
+  { id: "1", character: "我", pinyin: "wǒ", bengali: "আমি", meaning: "I/Me", category: "PRONOUN", 
+    examples: [{ zh: "我是学生。", py: "Wǒ shì xuésheng.", bn: "আমি একজন ছাত্র।" }], collocations: ["আমার", "আমরা"] },
+  { id: "2", character: "你", pinyin: "nǐ", bengali: "তুমি", meaning: "You", category: "PRONOUN", 
+    examples: [{ zh: "你好吗？", py: "Nǐ hǎo ma?", bn: "তুমি কেমন আছো?" }] },
   { id: "3", character: "他", pinyin: "tā", bengali: "সে", meaning: "He/She", category: "PRONOUN" },
   { id: "4", character: "们", pinyin: "men", bengali: "রা (বহুবচন)", meaning: "Plural suffix", category: "PRONOUN" },
   { id: "5", character: "好", pinyin: "hǎo", bengali: "ভালো", meaning: "Good", category: "ADJECTIVE" },
-  { id: "6", character: "是", pinyin: "shì", bengali: "হয়", meaning: "To be (Is/Are)", category: "ACTION" },
+  { id: "6", character: "是", pinyin: "shì", bengali: "হয়", meaning: "To be", category: "ACTION" },
   { id: "7", character: "不", pinyin: "bù", bengali: "না", meaning: "Not", category: "ADJECTIVE" },
   { id: "8", character: "喝", pinyin: "hē", bengali: "পান করা", meaning: "To Drink", category: "ACTION" },
   { id: "9", character: "吃", pinyin: "chī", bengali: "খাওয়া", meaning: "To Eat", category: "ACTION" },
   { id: "10", character: "水", pinyin: "shuǐ", bengali: "পানি", meaning: "Water", category: "OBJECT" },
-  { id: "11", character: "饭", pinyin: "fàn", bengali: "ভাত", meaning: "Meal/Rice", category: "OBJECT" },
+  { id: "11", character: "饭", pinyin: "fàn", bengali: "ভাত", meaning: "Meal", category: "OBJECT" },
   { id: "12", character: "大", pinyin: "dà", bengali: "বড়", meaning: "Big", category: "ADJECTIVE" },
   { id: "13", character: "小", pinyin: "xiǎo", bengali: "ছোট", meaning: "Small", category: "ADJECTIVE" },
   { id: "14", character: "一", pinyin: "yī", bengali: "এক", meaning: "One", category: "NUMBER" },
@@ -367,7 +308,37 @@ export const HSK_1_WORDS: Word[] = [
   { id: "17", character: "谢谢", pinyin: "xièxiè", bengali: "ধন্যবাদ", meaning: "Thank you", category: "ACTION" },
   { id: "18", character: "见", pinyin: "jiàn", bengali: "দেখা করা", meaning: "To See", category: "ACTION" },
   { id: "19", character: "再见", pinyin: "zàijiàn", bengali: "বিদায়", meaning: "Goodbye", category: "ACTION" },
-  { id: "20", character: "多", pinyin: "duō", bengali: "অনেক", meaning: "Many/Much", category: "ADJECTIVE" },
+  { id: "20", character: "多", pinyin: "duō", bengali: "অনেক", meaning: "Many", category: "ADJECTIVE" },
+  { id: "21", character: "爸爸", pinyin: "bàba", bengali: "বাবা", meaning: "Father", category: "OBJECT" },
+  { id: "22", character: "妈妈", pinyin: "māma", bengali: "মা", meaning: "Mother", category: "OBJECT" },
+  { id: "23", character: "哥哥", pinyin: "gēge", bengali: "বড় ভাই", meaning: "Elder Brother", category: "OBJECT" },
+  { id: "24", character: "弟弟", pinyin: "dìdi", bengali: "ছোট ভাই", meaning: "Younger Brother", category: "OBJECT" },
+  { id: "25", character: "姐姐", pinyin: "jiějie", bengali: "বড় বোন", meaning: "Elder Sister", category: "OBJECT" },
+  { id: "26", character: "妹妹", pinyin: "mèimei", bengali: "ছোট বোন", meaning: "Younger Sister", category: "OBJECT" },
+  { id: "27", character: "人", pinyin: "rén", bengali: "মানুষ", meaning: "Person", category: "OBJECT" },
+  { id: "28", character: "钱", pinyin: "qián", bengali: "টাকা", meaning: "Money", category: "OBJECT" },
+  { id: "29", character: "块", pinyin: "kuài", bengali: "মুদ্রা পরিমাপক", meaning: "Yuan", category: "NUMBER" },
+  { id: "30", character: "这", pinyin: "zhè", bengali: "এটি", meaning: "This", category: "PRONOUN" },
+  { id: "31", character: "那", pinyin: "nà", bengali: "সেটি", meaning: "That", category: "PRONOUN" },
+  { id: "32", character: "家", pinyin: "jiā", bengali: "বাড়ি", meaning: "Home", category: "OBJECT" },
+  { id: "33", character: "爱", pinyin: "ài", bengali: "ভালোবাসা", meaning: "Love", category: "ACTION" },
+  { id: "34", character: "在", pinyin: "zài", bengali: "থাকা", meaning: "To be at", category: "ACTION" },
+  { id: "35", character: "几", pinyin: "jǐ", bengali: "কত", meaning: "How many", category: "NUMBER" },
+  { id: "36", character: "点", pinyin: "diǎn", bengali: "টা", meaning: "O'clock", category: "NUMBER" },
+  { id: "37", character: "今天", pinyin: "jīntiān", bengali: "আজ", meaning: "Today", category: "OBJECT" },
+  { id: "38", character: "明天", pinyin: "míngtiān", bengali: "আগামীকাল", meaning: "Tomorrow", category: "OBJECT" },
+  { id: "39", character: "北京", pinyin: "Běijīng", bengali: "বেইজিং", meaning: "Beijing", category: "OBJECT" },
+  { id: "40", character: "很", pinyin: "hěn", bengali: "খুব", meaning: "Very", category: "ADJECTIVE" },
+  { id: "41", character: "漂亮", pinyin: "piàoliang", bengali: "সুন্দর", meaning: "Beautiful", category: "ADJECTIVE" },
+  { id: "42", character: "忙", pinyin: "máng", bengali: "ব্যস্ত", meaning: "Busy", category: "ADJECTIVE" },
+  { id: "43", character: "天", pinyin: "tiān", bengali: "আকাশ", meaning: "Sky", category: "OBJECT" },
+  { id: "44", character: "多", pinyin: "duō", bengali: "অনেক", meaning: "Many", category: "ADJECTIVE" },
+  { id: "45", character: "少", pinyin: "shǎo", bengali: "কম", meaning: "Few", category: "ADJECTIVE" },
+  { id: "46", character: "多少", pinyin: "duōshao", bengali: "কতটুকু", meaning: "How much", category: "PRONOUN" },
+  { id: "47", character: "哪儿", pinyin: "nǎr", bengali: "কোথায়", meaning: "Where", category: "PRONOUN" },
+  { id: "48", character: "去", pinyin: "qù", bengali: "যাওয়া", meaning: "To go", category: "ACTION" },
+  { id: "49", character: "想", pinyin: "xiǎng", bengali: "চাওয়া", meaning: "To want", category: "ACTION" },
+  { id: "50", character: "坐", pinyin: "zuò", bengali: "বসা", meaning: "To sit", category: "ACTION" },
 ];
 
 export const HSK_1_MODULES: HSKModule[] = [
@@ -379,22 +350,7 @@ export const HSK_1_MODULES: HSKModule[] = [
     color: "#88B04B",
     words: HSK_1_WORDS.slice(0, 5).concat(HSK_1_WORDS[16], HSK_1_WORDS[18]),
     quizzes: [
-      {
-        id: "q1_1",
-        type: "BUILD",
-        question: "বাক্যটি তৈরি করুন: 'তুমি ভালো আছ'",
-        chineseContent: "你好",
-        correctAnswer: "你好",
-        chips: ["你", "好", "我"]
-      },
-      {
-        id: "q1_2",
-        type: "LISTENING",
-        question: "বাংলা অর্থটি নির্বাচন করুন",
-        chineseContent: "再见",
-        correctAnswer: "বিদায়",
-        options: ["ধন্যবাদ", "বিদায়", "আমি"]
-      }
+      { id: "q1_1", type: "BUILD", question: "বাক্যটি তৈরি করুন: 'তুমি ভালো আছ'", chineseContent: "你好", correctAnswer: "你好", chips: ["নি", "হাও", "ও"] },
     ]
   },
   {
@@ -404,41 +360,69 @@ export const HSK_1_MODULES: HSKModule[] = [
     icon: "🍚",
     color: "#D4A373",
     words: HSK_1_WORDS.slice(7, 11),
+    quizzes: []
+  }
+];
+
+export const HSK_2_WORDS: Word[] = [
+  { id: "h2_1", character: "报纸", pinyin: "bàozhǐ", bengali: "সংবাদপত্র", meaning: "Newspaper", category: "OBJECT", examples: [{ zh: "你看报纸吗？", py: "Nǐ kàn bàozhǐ ma?", bn: "তুমি কি সংবাদপত্র পড়ো?" }] },
+  { id: "h2_2", character: "唱歌", pinyin: "chànggē", bengali: "গান গাওয়া", meaning: "To Sing", category: "ACTION", examples: [{ zh: "她唱歌很好听。", py: "Tā chànggē hěn hǎotīng.", bn: "সে খুব সুন্দর গান গায়।" }] },
+  { id: "h2_3", character: "出", pinyin: "chū", bengali: "বের হওয়া", meaning: "To Exit/Go out", category: "ACTION" },
+  { id: "h2_4", character: "穿", pinyin: "chuān", bengali: "পরিধান করা", meaning: "To Wear", category: "ACTION", examples: [{ zh: "你穿什么衣服？", py: "Nǐ chuān shénme yīfú?", bn: "তুমি কি পোশাক পরেছো?" }] },
+  { id: "h2_5", character: "错", pinyin: "cuò", bengali: "ভুল", meaning: "Wrong", category: "ADJECTIVE" },
+  { id: "h2_6", character: "打篮球", pinyin: "dǎ lánqiú", bengali: "বাস্কেটবল খেলা", meaning: "Play basketball", category: "ACTION" },
+  { id: "h2_7", character: "大家", pinyin: "dàjiā", bengali: "সবাই", meaning: "Everyone", category: "PRONOUN" },
+  { id: "h2_8", character: "到", pinyin: "dào", bengali: "পৌঁছানো", meaning: "To arrive", category: "ACTION" },
+  { id: "h2_9", character: "得", pinyin: "de", bengali: "ক্রিয়া বিশেষণ চিহ্ন", meaning: "Particle", category: "ADJECTIVE" },
+  { id: "h2_10", character: "等", pinyin: "děng", bengali: "অপেক্ষা করা", meaning: "To wait", category: "ACTION" },
+];
+
+export const HSK_2_MODULES: HSKModule[] = [
+  {
+    id: 101,
+    title: "HSK ২ লেসন ১: অবসর সময়",
+    shortDesc: "গান ও খেলাধুলা",
+    icon: "⚽",
+    color: "#6C5CE7",
+    words: [HSK_2_WORDS[1], HSK_2_WORDS[4]],
     quizzes: [
       {
-        id: "q2_1",
-        type: "BUILD",
-        question: "তৈরি করুন: 'আমি পানি খাই'",
-        chineseContent: "我喝水",
-        correctAnswer: "我喝水",
-        chips: ["喝", "我", "水", "饭"]
-      },
-      {
-        id: "q2_2",
-        type: "TRANSLATE",
-        question: "'খাওয়া' এর পিনয়িন লিখুন",
-        chineseContent: "吃",
-        correctAnswer: "chi",
-        hint: "পিনয়িন: chī"
+        id: "q_h2_1",
+        type: "LISTENING",
+        question: "সঠিক অর্থ নির্বাচন করুন",
+        chineseContent: "唱歌",
+        correctAnswer: "গান গাওয়া",
+        options: ["গান গাওয়া", "নাচ করা", "বলা"]
       }
     ]
   },
   {
-    id: 3,
-    title: "লেসন ৩: সংখ্যা শিক্ষা",
-    shortDesc: "১ থেকে ৩ পর্যন্ত গণনা",
-    icon: "🔢",
-    color: "#5C9DFF",
-    words: HSK_1_WORDS.slice(13, 16),
+    id: 102,
+    title: "HSK ২ লেসন ২: মানুষের সাথে পরিচয়",
+    shortDesc: "সবাই ও পরিচিতি",
+    icon: "👥",
+    color: "#FF7675",
+    words: [HSK_2_WORDS[6], HSK_2_WORDS[7], HSK_2_WORDS[9]],
     quizzes: [
       {
-        id: "q3_1",
-        type: "LISTENING",
-        question: "সংখ্যাটি শুনুন",
-        chineseContent: "三",
-        correctAnswer: "তিন",
-        options: ["এক", "দুই", "তিন"]
+        id: "q_h2_2",
+        type: "TRANSLATE",
+        question: "'সবাই' এর পিনয়িন লিখুন",
+        chineseContent: "大家",
+        correctAnswer: "dajia",
+        hint: "dàjiā"
       }
     ]
   }
+];
+
+export interface HSKLevelData {
+  level: number;
+  title: string;
+  modules: HSKModule[];
+}
+
+export const ALL_HSK_DATA: HSKLevelData[] = [
+  { level: 1, title: "HSK ১", modules: HSK_1_MODULES },
+  { level: 2, title: "HSK ২", modules: HSK_2_MODULES },
 ];
