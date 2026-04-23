@@ -1,0 +1,6 @@
+{
+  "name": "Bangla to Chinese Guru",
+  "description": "A gamified language learning app for Bengali speakers to learn Mandarin Chinese from scratch.",
+  "requestFramePermissions": ["camera", "microphone"],
+  "majorCapabilities": []
+}
